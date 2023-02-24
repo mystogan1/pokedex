@@ -64,12 +64,11 @@ input#search:focus{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 4rem;
 }
 .type{
-    padding: .2rem .7rem;
+    padding: .2rem .5rem;
     border-radius: 20px;
-    font-size: 1rem;
+    font-size: .7rem;
     font-family: 500;
     color: white;
 }
@@ -114,5 +113,6 @@ input#search:focus{
 .bar-inner{
     background: #007200;
     width: 40%;
+    transition: 1s ease-out;
 }
 
