@@ -25,6 +25,7 @@ const colors = {
     "electric": "249, 207, 48",
     "dragon": "112, 55, 255"
 }
+var link = document.querySelector("link[rel~='icon']");
 
 //To fetch data
 const getPoke = async (url, pokeName = 'pikachu') => {
@@ -37,6 +38,9 @@ const getPoke = async (url, pokeName = 'pikachu') => {
 
 //Main fuction to change data
 let pokemon = (pokeData) => {
+    //favicon
+    link.href = pokeData.sprites.other.dream_world.front_default;
+        
     //image
     pokeImg.src = pokeData.sprites.other.home.front_default;  //dream_world
 
@@ -74,6 +78,7 @@ let start = async (pokeName) => {
         let data = await getPoke(api_url,pokeName);
         pokemon(data);
     } catch (e) {
+        console.log(e);
         console.log(`"${pokeName}" not found.`)
     }
 }
