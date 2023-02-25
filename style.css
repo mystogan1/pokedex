@@ -7,11 +7,14 @@
     font-family: 'Poppins', sans-serif;
 }
 body{
-    background-color: #a9def9;
+    background-color: #21D4FD;
+    background-image: linear-gradient(19deg, #21D4FD 0%, #6821ff 100%);
+
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    flex-direction: column;
 }
 #pokedex{
     background-color: rgb(116,203,72);
@@ -66,10 +69,10 @@ input#search:focus{
     align-items: center;
 }
 .type{
-    padding: .2rem .5rem;
+    padding: .3rem .7rem;
     border-radius: 20px;
-    font-size: .7rem;
-    font-family: 500;
+    font-size: .9rem;
+    font-family: 600;
     color: white;
 }
 #data h4{
@@ -108,6 +111,7 @@ input#search:focus{
 .bar-outer{
     background: #70e000;
     width: 100%;
+    position: relative;
     
 }
 .bar-inner{
@@ -115,4 +119,13 @@ input#search:focus{
     width: 40%;
     transition: 1s ease-out;
 }
-
+.Instruction{
+    background-color: #004f2dbe;
+    padding: 1rem .8rem;
+    border-radius: 50px;
+    margin-top: 1rem;
+    color: aliceblue;
+}
+label span{
+    color: #9bf6ff;
+}

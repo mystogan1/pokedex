@@ -39,7 +39,7 @@ const getPoke = async (url, pokeName = 'pikachu') => {
 //Main fuction to change data
 let pokemon = (pokeData) => {
     //favicon
-    link.href = pokeData.sprites.other.dream_world.front_default;
+    link.href = pokeData.sprites.other.home.front_default;
         
     //image
     pokeImg.src = pokeData.sprites.other.home.front_default;  //dream_world
@@ -68,7 +68,7 @@ let pokemon = (pokeData) => {
     // bar
     let statsBar = [];
     for (let stat of pokeData.stats) {
-        statsBar.push(stat.base_stat + '%');
+        statsBar.push(stat.base_stat/2 + '%');
     }
     [hpBar.style.width, atkBar.style.width, defBar.style.width, satkBar.style.width, sdefBar.style.width, spdBar.style.width] = statsBar;
 }
@@ -92,7 +92,7 @@ pokeInpt.addEventListener('input',function (e) {
     if (e.data) {
         pokeName = pokeInpt.value.split(' ').join('-');
         setTimeout(function () {
-            start(pokeName)
+            start(pokeName.toLowerCase())
         }, 700);
     }
 });
