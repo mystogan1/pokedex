@@ -62,7 +62,7 @@ input#search:focus{
 }
 #poke-type{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
 }
 .type{

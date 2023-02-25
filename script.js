@@ -5,7 +5,6 @@ const types = document.querySelector('#poke-type');
 let [hp, atk, def, satk, sdef, spd] = document.querySelectorAll('.stats .stat-number');
 let [hpBar, atkBar, defBar, satkBar, sdefBar, spdBar] = document.querySelectorAll('.stats .stat-bar .bar-inner');
 const api_url = "https://pokeapi.co/api/v2/pokemon/";
-
 const colors = {
     "rock": "182, 158, 49",
     "ghost": "112, 85, 155",
@@ -28,48 +27,32 @@ const colors = {
 }
 
 //To fetch data
-const getPoke = async (url, pokeName) => {
+const getPoke = async (url, pokeName = 'pikachu') => {
     const res = await fetch(url + pokeName);
-    return await res.json();
+    if (res.status == 200) {
+        return await res.json();
+    }
 }
 
 
 //Main fuction to change data
-let start = async () => {
-    console.log(pokeInpt.value);
-
-    // load data
-    var pokeData = await getPoke(api_url, pokeInpt.value);
-    console.log(pokeData);
-
+let pokemon = (pokeData) => {
     //image
-    pokeImg.src = pokeData.sprites.other.home.front_default;
+    pokeImg.src = pokeData.sprites.other.home.front_default;  //dream_world
 
     //Id Number
     number.innerText = '#' + pokeData.id;
 
     // type
-        //TODO: //Remove existing child
-    // let type = Array.from(document.querySelector('#poke-type span'));
-    // if (type) {
-    //     for (let span of type) {
-    //         types.removeChild(span);
-    //     }
-    // }
+    types.innerHTML = '';
+    pokeData.types.forEach(t => {
+        let newType = document.createElement('span');
+        newType.style.background = `rgb(${colors[t.type.name]})`;
+        newType.innerText = t.type.name;
+        newType.classList.add('type');
 
-        //Create and add type
-    for (let type of pokeData.types) {
-        let span = document.createElement('span');
-        span.classList.add('type');
-        Object.keys(colors).forEach(color => {
-            if (color == type.type.name) {
-                console.log(colors[color]);
-                span.style.background = `rgb(${colors[color]})`;
-                span.innerText = color;
-            }
-        })
-        types.append(span);
-    }
+        types.append(newType);
+    })
 
     //stats
     let stats = [];
@@ -86,23 +69,25 @@ let start = async () => {
     [hpBar.style.width, atkBar.style.width, defBar.style.width, satkBar.style.width, sdefBar.style.width, spdBar.style.width] = statsBar;
 }
 
+let start = async (pokeName) => {
+    try {
+        let data = await getPoke(api_url,pokeName);
+        pokemon(data);
+    } catch (e) {
+        console.log(`"${pokeName}" not found.`)
+    }
+}
+
 
 //pre-fetched data
-fetch(api_url)
-    .then(res => res.json())
-    .then(data => {
-        try {
-            start();
-        } catch (e) {
-            console.count(e.message);
-        }
-    })
+start();
 
 //fetch after input
-pokeInpt.addEventListener('input', function (e) {
+pokeInpt.addEventListener('input',function (e) {
     if (e.data) {
-        start();
+        pokeName = pokeInpt.value.split(' ').join('-');
+        setTimeout(function () {
+            start(pokeName)
+        }, 700);
     }
 });
-
-
